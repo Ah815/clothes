@@ -25,9 +25,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 relative`}
       >
         {/* Grain background */}
-        <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.06]
+        {/* <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.06]
         [background-image:radial-gradient(#000_1px,transparent_1px)]
-        [background-size:4px_4px]" />
+        [background-size:4px_4px]" /> */}
 
         <div className="relative z-10">
           <Navbar />
