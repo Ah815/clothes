@@ -1,79 +1,102 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, ShoppingBag, User } from "lucide-react";
+import { Menu, X, ShoppingBag, User, Search } from "lucide-react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="w-full z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative">
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap');
+        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+        .font-jost { font-family: 'Jost', sans-serif; }
+      `}</style>
 
-        {/* Left */}
-        <div className="flex items-center gap-6">
-          <button
-            className="lg:hidden"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={26} /> : <Menu size={26} />}
-          </button>
+      <header className="font-jost w-full bg-[#f2f0ed] z-50 border-b border-[#e0ddd8]">
+        <div className="flex items-center justify-between px-5 sm:px-8 lg:px-11 py-4 relative">
 
-          {/* Desktop Links */}
-          <nav className="hidden lg:flex gap-8 text-lg font-medium text-gray-700">
-            <Link href="/" className="hover:text-black">Home</Link>
-            <Link href="/collections" className="hover:text-black">Collections</Link>
-            <Link href="/new" className="hover:text-black">New</Link>
-          </nav>
-        </div>
+          {/* LEFT */}
+          <div className="flex items-center gap-6">
 
-        {/* Center Logo */}
-        <div className="absolute left-1/2 -translate-x-1/2">
-          <Link href="/">
-            <Image
-              src="/logo.png"
-              alt="logo"
-              width={40}
-              height={40}
-            />
-          </Link>
-        </div>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setOpen(!open)}
+              className="lg:hidden w-9 h-9 flex items-center justify-center text-[#888] hover:text-[#1a1a1a]"
+            >
+              {open ? <X size={18} /> : <Menu size={18} />}
+            </button>
 
-        {/* Right */}
-        <div className="flex items-center gap-3">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-7">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Collections", href: "/collections" },
+                { label: "New", href: "/new" },
+              ].map(({ label, href }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  className="text-[11px] tracking-[0.12em] uppercase text-[#888] hover:text-[#1a1a1a] transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
 
-          {/* Cart */}
-          <Link
-            href="/cart"
-            className="flex items-center justify-center w-10 h-10 lg:w-auto lg:h-auto lg:px-4 lg:py-2 bg-white lg:bg-black text-black lg:text-white rounded-full border-2 border-black lg:border-none"
-          >
-            <span className="hidden lg:block mr-2 text-sm">Cart</span>
-            <ShoppingBag size={18} />
-          </Link>
+          {/* CENTER LOGO */}
+          <div className="absolute left-1/2 -translate-x-1/2">
+            <Link href="/">
+              <span className="font-cormorant text-[22px] sm:text-[26px] font-medium tracking-[0.14em] uppercase text-[#1a1a1a] leading-none select-none">
+                Élégant
+              </span>
+            </Link>
+          </div>
 
-          {/* User */}
-          <Link
-            href="/profile"
-            className="w-10 h-10 flex items-center justify-center bg-black text-white rounded-full"
-          >
-            <User size={18} />
-          </Link>
+          {/* RIGHT */}
+          <div className="flex items-center gap-1 sm:gap-2">
 
-        </div>
-      </div>
+      
 
-      {/* Mobile Menu */}
-      {open && (
-        <div className="lg:hidden border-t bg-white">
-          <div className="flex flex-col gap-4 px-6 py-4 text-gray-700 font-medium">
-            <Link href="/">Home</Link>
-            <Link href="/collections">Collections</Link>
-            <Link href="/new">New</Link>
+            {/* Cart */}
+            <Link
+              href="/cart"
+              className="flex items-center gap-2 bg-[#1a1a1a] text-[#f2f0ed] pl-3 pr-2 py-1.5 rounded-full text-[11px] tracking-widest uppercase hover:bg-[#333]"
+            >
+              <span className="hidden sm:block">Cart</span>
+              <span className="w-5 h-5 rounded-full bg-[#f2f0ed] text-[#1a1a1a] flex items-center justify-center text-[10px] font-medium">
+                0
+              </span>
+            </Link>
+
           </div>
         </div>
-      )}
-    </header>
+
+        {/* MOBILE MENU */}
+        {open && (
+          <div className="lg:hidden border-t border-[#e0ddd8] bg-[#f2f0ed]">
+            <div className="flex flex-col gap-6 px-6 py-8">
+              {[
+                { label: "Home", href: "/" },
+                { label: "Collections", href: "/collections" },
+                { label: "New", href: "/new" },
+              ].map(({ label, href }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  className="text-[12px] tracking-[0.14em] uppercase text-[#888] hover:text-[#1a1a1a]"
+                  onClick={() => setOpen(false)}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }

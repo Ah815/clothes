@@ -1,3 +1,5 @@
+import Approach from '@/components/Approach'
+import Collections from '@/components/Collections'
 import Hero from '@/components/Hero'
 import NewThisWeek from '@/components/NewThisWeek'
 import React from 'react'
@@ -7,6 +9,8 @@ const page = () => {
     <div>
       <Hero />
       <NewThisWeek />
+      <Collections />
+      <Approach />
     </div>
   )
 }

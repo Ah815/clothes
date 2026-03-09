@@ -1,115 +1,113 @@
 "use client";
 
-import { useEffect } from "react";
-import Image from "next/image";
-import { Search, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import useEmblaCarousel from "embla-carousel-react";
+import { Search, ArrowRight } from "lucide-react";
+
+const images = [
+  {
+    src: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=500&h=650&fit=crop&crop=top",
+    alt: "Man in grey outfit",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1520975661595-6453be3f7070?w=500&h=650&fit=crop&crop=top",
+    alt: "Man in brown coat",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&h=650&fit=crop&crop=center",
+    alt: "White outfit",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=650&fit=crop&crop=top",
+    alt: "White shirt",
+  },
+];
 
 export default function Hero() {
-  const images = ["/image1.png", "/image2.png", "/image3.png", "/image4.png"];
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    loop: true,
-    align: "start",
-  });
-
-  // Auto rotation
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    const interval = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [emblaApi]);
-
   return (
-    <section className="w-full min-h-screen px-6 sm:px-10 md:px-16 lg:px-20 py-12 md:py-16 grid lg:grid-cols-[320px_1fr] gap-10 lg:gap-12 items-center">
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap');
+        .font-cormorant { font-family: 'Cormorant Garamond', serif; }
+        .font-jost { font-family: 'Jost', sans-serif; }
+        .frame-card { padding: 6px 6px 28px 6px; }
+      `}</style>
 
-      {/* LEFT SIDEBAR */}
-      <div className="space-y-6 md:space-y-8">
+      <div className="font-jost flex flex-col lg:flex-row min-h-screen w-full bg-[#f2f0ed] overflow-hidden">
 
-        {/* CATEGORY */}
-        <div className="flex flex-row lg:flex-col text-sm tracking-wide gap-4 lg:gap-3 text-gray-600">
-          <span className="hover:text-black cursor-pointer">MEN</span>
-          <span className="hover:text-black cursor-pointer">WOMEN</span>
-          <span className="hover:text-black cursor-pointer">KIDS</span>
-        </div>
+        {/* SIDEBAR */}
+        <aside className="lg:w-75 w-full px-6 sm:px-10 lg:px-11 py-10 lg:py-14 flex flex-col justify-center gap-6 lg:gap-7">
 
-        {/* SEARCH */}
-        <div className="flex items-center bg-gray-200 px-4 py-2 max-w-full sm:max-w-[350px] text-sm">
-          <Search size={16} className="mr-2" />
-          <input
-            placeholder="Search"
-            className="bg-transparent outline-none w-full"
-          />
-        </div>
-
-        {/* TITLE */}
-        <div className="pt-4 md:pt-8">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1]">
-            NEW <br /> COLLECTION
-          </h1>
-        </div>
-
-        {/* BUTTON */}
-        <button className="flex items-center gap-3 bg-gray-200 px-5 py-3 text-sm hover:bg-gray-300 transition w-fit">
-          Go To Shop
-          <ArrowRight size={18} />
-        </button>
-      </div>
-
-      {/* CAROUSEL */}
-      <div className="relative">
-
-        {/* CHEVRONS */}
-        <div className="hidden md:flex absolute -left-12 top-1/2 -translate-y-1/2 flex-col gap-4 z-10">
-          <button
-            onClick={() => emblaApi?.scrollPrev()}
-            className="w-10 h-10 border border-gray-300 flex items-center justify-center"
-          >
-            <ChevronLeft size={18} />
-          </button>
-
-          <button
-            onClick={() => emblaApi?.scrollNext()}
-            className="w-10 h-10 border border-gray-300 flex items-center justify-center"
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
-
-        {/* EMBLA VIEWPORT */}
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex">
-
-            {images.map((img, index) => (
-              <div
-                key={index}
-                className="
-                min-w-full
-                sm:min-w-[80%]
-                md:min-w-[60%]
-                lg:min-w-[55%]
-                flex justify-center
-                p-2 sm:p-4
-                "
+          {/* Categories */}
+          <div className="flex gap-4 lg:flex-col lg:gap-2">
+            {["Men", "Women", "Kids"].map((cat) => (
+              <span
+                key={cat}
+                className="text-[11px] tracking-[0.14em] uppercase text-[#888] cursor-pointer hover:text-[#1a1a1a] transition-colors"
               >
-                <Image
-                  src={img}
-                  alt="product"
-                  width={800}
-                  height={1000}
-                  className="w-full max-w-[600px] h-auto object-cover"
+                {cat}
+              </span>
+            ))}
+          </div>
+
+          {/* Search */}
+          <div className="flex items-center gap-2 bg-[#e8e5e1] px-3.5 py-2.5 rounded-sm w-full sm:max-w-55">
+            <Search size={13} color="#999" className="shrink-0" />
+            <input
+              placeholder="Search"
+              className="bg-transparent outline-none text-[12px] font-light text-[#333] w-full tracking-wide placeholder:text-[#999]"
+              style={{ fontFamily: "'Jost', sans-serif" }}
+            />
+          </div>
+
+          {/* Title */}
+          <div className="mt-2">
+            <h1
+              className="font-cormorant text-[48px] sm:text-[60px] lg:text-[72px] font-medium uppercase text-[#1a1a1a]"
+              style={{ lineHeight: 0.9, letterSpacing: "0.02em" }}
+            >
+              New<br />Collection
+            </h1>
+
+            <p className="text-[11px] font-light tracking-[0.12em] text-[#999] mt-4 uppercase leading-loose">
+              Summer<br />2024
+            </p>
+          </div>
+
+          {/* CTA */}
+          <button className="flex items-center gap-3 bg-[#e8e5e1] hover:bg-[#dedad5] transition-colors px-5 py-3 text-[11px] tracking-widest uppercase text-[#1a1a1a] w-fit rounded-sm cursor-pointer border-none">
+            Go To Shop
+            <span className="flex items-center gap-1 text-[#777]">
+              <span className="text-sm" style={{ letterSpacing: "-1px" }}>——</span>
+              <ArrowRight size={13} />
+            </span>
+          </button>
+        </aside>
+
+        {/* IMAGE GRID */}
+        <div className="flex-1 flex items-center justify-center lg:justify-end px-6 sm:px-10 lg:pr-12 py-10">
+
+          <div className="grid grid-cols-2 gap-3 w-full max-w-140 aspect-square">
+
+            {images.map((img, i) => (
+              <div
+                key={i}
+                className="frame-card rounded-sm overflow-hidden bg-white cursor-pointer
+                shadow-[0_8px_32px_rgba(0,0,0,0.10),0_2px_8px_rgba(0,0,0,0.06)]
+                hover:shadow-[0_20px_56px_rgba(0,0,0,0.16),0_6px_18px_rgba(0,0,0,0.10)]
+                hover:-translate-y-2 hover:scale-[1.02]
+                transition-all duration-500"
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
             ))}
 
           </div>
-        </div>
 
+        </div>
       </div>
-    </section>
+    </>
   );
 }
